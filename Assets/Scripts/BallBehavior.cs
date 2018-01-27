@@ -4,7 +4,7 @@ using System.Collections;
 public class BallBehavior : MonoBehaviour {
 	private GameController myGameController;
 	public Ball myBall;
-	private bool touched = false;
+	public bool touched = false;
 
 	// Use this for initialization
 	void Start () {
@@ -18,9 +18,16 @@ public class BallBehavior : MonoBehaviour {
 
 	void OnMouseDown () {
 		if (!touched) {
-			this.GetComponent<Renderer> ().material.color = myBall.GetColor ();
 			touched = true;
-			myGameController.ProcessTouch ();
+			// new touch!
+			myGameController.ProcessTouch (true, gameObject);
 		}
+		else {
+			myGameController.ProcessTouch (false, gameObject);
+		}
+	}
+
+	void OnTriggerEnter2D (Collider2D col) {
+		myGameController.ProcessCollision (gameObject, col.gameObject);
 	}
 }

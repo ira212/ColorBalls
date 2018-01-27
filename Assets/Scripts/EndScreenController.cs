@@ -13,12 +13,12 @@ public class EndScreenController : MonoBehaviour {
 		message = "Good job, Sam and Sara!";
 
 		// ensure we get singular/plural correct for 1 letter
-		if (GameController.gameLength == 1) {
+		if (GameController.colored == 1) {
 			summaryMessage = "You colored 1 cube!";
 		}
 		// the game was of some length other than 1
 		{
-			summaryMessage = "You colored " +GameController.gameLength+ " cubes!";
+			summaryMessage = "You colored " +GameController.colored+ " cubes!";
 		}
 	}
 	
@@ -29,7 +29,7 @@ public class EndScreenController : MonoBehaviour {
 		GUI.Label(new Rect(Screen.width/2-100,150,200,200), message);
 		
 		// Start game button
-		if(GUI.Button(new Rect(Screen.width/2-200,290,400,120), "Play Again")) {
+		if(GUI.Button(new Rect(Screen.width/2-300,290,600,150), "Play Again")) {
 			SceneManager.LoadScene(1);
 		}
 

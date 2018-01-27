@@ -3,8 +3,9 @@ using System.Collections;
 
 
 public class Ball {
-	private GameObject ballObj;
-	private int dirX, dirY, size, sizeBuffer;
+	public GameObject ballObj;
+	public bool pending;
+	private int dirX, dirY, size, sizeBuffer, mySpeed;
 	private Color color;
 
 	public Ball (GameObject ballPrefab, Color myColor, int posX, int posY, int directionX, int directionY, int s) {
@@ -15,6 +16,8 @@ public class Ball {
 		dirY = directionY;
 		size = s;
 		color = myColor;
+
+		mySpeed = Random.Range(GameController.minSpeed, GameController.maxSpeed);
 
 		// I'm not sure why we need this, but the letter seems to take up less space than the actual size, so this is some extra size for proper bouncing.
 		// There's probably a way to change the way the letter prefab is setup to avoid this entirely, but I didn't have time to figure it out.
@@ -27,7 +30,7 @@ public class Ball {
 
 	public void Move () {
 		// move the object based on it's direction and speed
-		ballObj.transform.Translate(new Vector3(GameController.speed * dirX, GameController.speed * dirY, 0) * Time.deltaTime);
+		ballObj.transform.Translate(new Vector3(mySpeed * dirX, mySpeed * dirY, 0) * Time.deltaTime);
 
 		// the object went off the left or right edge
 		// swap the x direction so it bounces, and constrain it to the board
