@@ -3,13 +3,14 @@ using System.Collections;
 
 
 public class Ball {
-	private GameObject ball;
+	private GameObject ballObj;
 	private int dirX, dirY, size, sizeBuffer;
 	private Color color;
 
 	public Ball (GameObject ballPrefab, Color myColor, int posX, int posY, int directionX, int directionY, int s) {
 		// create the tile prefab
-		ball = (GameObject) Object.Instantiate(ballPrefab, new Vector3(posX, posY, 0), Quaternion.identity);
+		ballObj = (GameObject) Object.Instantiate(ballPrefab, new Vector3(posX, posY, 0), Quaternion.identity);
+		ballObj.GetComponent<BallBehavior> ().myBall = this;
 		dirX = directionX;
 		dirY = directionY;
 		size = s;
@@ -22,18 +23,22 @@ public class Ball {
 		Debug.Log ("Screen width: " + Screen.width + "   Screen height: " + Screen.height);
 	}
 
+	public Color GetColor () {
+		return color;
+	}
+
 	public void Move () {
 		// move the letter based on it's direction and speed
-		ball.transform.Translate(new Vector3(GameController.speed * dirX, GameController.speed * dirY, 0) * Time.deltaTime);
+		ballObj.transform.Translate(new Vector3(GameController.speed * dirX, GameController.speed * dirY, 0) * Time.deltaTime);
 
 		// the letter went off the left or right edge
-		if (ball.transform.position.x <= Screen.width/-2 + sizeBuffer || ball.transform.position.x >= Screen.width/2 - size - sizeBuffer) {
+		if (ballObj.transform.position.x <= Screen.width/-2 + sizeBuffer || ballObj.transform.position.x >= Screen.width/2 - size - sizeBuffer) {
 			// swap the x direction so it bounces
 			dirX *= -1;
 		}
 
 		// went off the top or bottom edge
-		if (ball.transform.position.y <= Screen.height/-2 + size + sizeBuffer || ball.transform.position.y >= Screen.height/2 - sizeBuffer) {
+		if (ballObj.transform.position.y <= Screen.height/-2 + size + sizeBuffer || ballObj.transform.position.y >= Screen.height/2 - sizeBuffer) {
 			// swap the y direction so it bounces
 			dirY *= -1;
 		}
@@ -41,21 +46,21 @@ public class Ball {
 
 	public void SetBig (bool big) {
 		if (big) {
-			ball.transform.localScale = new Vector3(3, 3, 1);
+			ballObj.transform.localScale = new Vector3(3, 3, 1);
 
 			// center it, offset from the center by its size.
-			ball.transform.position = new Vector3(size * -1.5f, size * 1.5f, 0);
+			ballObj.transform.position = new Vector3(size * -1.5f, size * 1.5f, 0);
 		}
 
 		// small
 		else {
 			// reset scale
-			ball.transform.localScale = new Vector3(1, 1, 1);
+			ballObj.transform.localScale = new Vector3(1, 1, 1);
 
 			// choose random location
 			int randX = Random.Range(Screen.width/-2 + sizeBuffer, Screen.width/2 - size - sizeBuffer);
 			int randY = Random.Range(Screen.height/-2 + size + sizeBuffer, Screen.height/2 - sizeBuffer);
-			ball.transform.position = new Vector3(randX, randY, 0);
+			ballObj.transform.position = new Vector3(randX, randY, 0);
 		}
 
 	}
