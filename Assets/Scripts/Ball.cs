@@ -19,8 +19,6 @@ public class Ball {
 		// I'm not sure why we need this, but the letter seems to take up less space than the actual size, so this is some extra size for proper bouncing.
 		// There's probably a way to change the way the letter prefab is setup to avoid this entirely, but I didn't have time to figure it out.
 		sizeBuffer = 0;
-
-		Debug.Log ("Screen width: " + Screen.width + "   Screen height: " + Screen.height);
 	}
 
 	public Color GetColor () {
@@ -28,19 +26,29 @@ public class Ball {
 	}
 
 	public void Move () {
-		// move the letter based on it's direction and speed
+		// move the object based on it's direction and speed
 		ballObj.transform.Translate(new Vector3(GameController.speed * dirX, GameController.speed * dirY, 0) * Time.deltaTime);
 
-		// the letter went off the left or right edge
-		if (ballObj.transform.position.x <= Screen.width/-2 + sizeBuffer || ballObj.transform.position.x >= Screen.width/2 - size - sizeBuffer) {
-			// swap the x direction so it bounces
+		// the object went off the left or right edge
+		// swap the x direction so it bounces, and constrain it to the board
+		if (ballObj.transform.position.x <= Screen.width/-2 + size + sizeBuffer) {
 			dirX *= -1;
+			ballObj.transform.position = new Vector3 (Screen.width /-2 + size + sizeBuffer, ballObj.transform.position.y, ballObj.transform.position.z);
+		}
+		if (ballObj.transform.position.x >= Screen.width / 2 - size - sizeBuffer) {
+			dirX *= -1;
+			ballObj.transform.position = new Vector3 (Screen.width / 2 - size - sizeBuffer, ballObj.transform.position.y, ballObj.transform.position.z);
 		}
 
 		// went off the top or bottom edge
-		if (ballObj.transform.position.y <= Screen.height/-2 + size + sizeBuffer || ballObj.transform.position.y >= Screen.height/2 - sizeBuffer) {
-			// swap the y direction so it bounces
+		// swap the y direction so it bounces, and constrain it to the board
+		if (ballObj.transform.position.y <= Screen.height/-2 + size + sizeBuffer) {
 			dirY *= -1;
+			ballObj.transform.position = new Vector3 (ballObj.transform.position.x, Screen.height /-2 + size + sizeBuffer, ballObj.transform.position.z);
+		}
+		if (ballObj.transform.position.y >= Screen.height / 2 - size - sizeBuffer) {
+			dirY *= -1;
+			ballObj.transform.position = new Vector3 (ballObj.transform.position.x, Screen.height / 2 - size - sizeBuffer, ballObj.transform.position.z);
 		}
 	}
 

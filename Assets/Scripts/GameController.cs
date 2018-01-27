@@ -37,7 +37,7 @@ public class GameController : MonoBehaviour {
 		// start in a random position, going either left/right or up/down. size 20, half of size
 		cubes = new Ball[numCubes];
 		for (int i = 0; i < numCubes; i++) {
-			cubes [i] = new Ball (cubePrefab, Color.red, Random.Range(-Screen.width/2+edgeBuffer, Screen.width/2-edgeBuffer), Random.Range(-Screen.height/2+edgeBuffer, Screen.height/2-edgeBuffer), Random.Range(0,2)*2-1, Random.Range(0,2)*2-1, 20);
+			cubes [i] = new Ball (cubePrefab, Color.red, Random.Range(-Screen.width/2+edgeBuffer, Screen.width/2-edgeBuffer), Random.Range(-Screen.height/2+edgeBuffer, Screen.height/2-edgeBuffer), Random.Range(0,2)*2-1, Random.Range(0,2)*2-1, 40);
 		}
 	}
 
