@@ -14,11 +14,11 @@ public class EndScreenController : MonoBehaviour {
 
 		// ensure we get singular/plural correct for 1 letter
 		if (GameController.gameLength == 1) {
-			summaryMessage = "You colored 1 ball!";
+			summaryMessage = "You colored 1 cube!";
 		}
 		// the game was of some length other than 1
 		{
-			summaryMessage = "You colored " +GameController.gameLength+ " balls!";
+			summaryMessage = "You colored " +GameController.gameLength+ " cubes!";
 		}
 	}
 	

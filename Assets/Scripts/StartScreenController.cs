@@ -19,7 +19,7 @@ public class StartScreenController : MonoBehaviour {
 
 		// Instructions
 		// should be centered, based on the screen 
-		GUI.Label(new Rect(Screen.width/2-100,100,200,200), "Make Purple!");
+		GUI.Label(new Rect(Screen.width/2-100,100,200,200), "Make Red!");
 		
 		// Start game button
 		if(GUI.Button(new Rect(Screen.width/2-75,Screen.height/2+50,150,80), "Play")) {
